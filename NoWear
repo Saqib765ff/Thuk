@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoWear Clothing - Premium Collection</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: #111;
+            color: gold;
+            font-size: 30px; /* লোগো ছোট করার জন্য সাইজ কমানো হয়েছে */
+            font-weight: bold;
+            letter-spacing: 5px;
+            font-family: 'Cursive', sans-serif; /* স্বাক্ষর ফন্ট ব্যবহার করা হয়েছে */
+        }
+
+        .products-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 0;
+            gap: 50px;
+        }
+
+        .product-option {
+            width: 80%;
+            padding: 50px;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 30px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .product-option:hover {
+            background-color: gold;
+            transform: scale(1.1);
+        }
+
+        .product-list, .product-details {
+            display: none;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            margin-bottom: 50px;
+            width: 90%;
+            max-width: 1200px;
+            text-align: center;
+        }
+
+        .product-list img {
+            width: 150px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        .product-details {
+            margin-top: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            background-color: #111;
+            color: white;
+        }
+
+        .footer a {
+            color: gold;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .threedot {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            cursor: pointer;
+        }
+
+        .threedot div {
+            width: 8px;
+            height: 8px;
+            background-color: gold; /* রঙ পরিবর্তন করা হয়েছে যাতে এটি স্পষ্ট দেখা যায় */
+            margin: 3px;
+            border-radius: 50%;
+        }
+
+        .menu {
+            display: none;
+            position: absolute;
+            right: 20px;
+            top: 50px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .menu a:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        NoWear Clothing
+    </div>
+
+    <div class="products-container">
+        <div class="product-option" onclick="showProductList('tshirt')">Oversized T-shirts</div>
+        <div class="product-option" onclick="showProductList('shirt')">Shirts</div>
+        <div class="product-option" onclick="showProductList('jeans')">Jeans</div>
+    </div>
+
+    <div id="tshirt-list" class="product-list">
+        <h2>T-shirts</h2>
+        <img src="tshirt1.jpg" alt="T-shirt 1" onclick="showProductDetails('T-shirt 1', 'Price: $25', 'High-quality oversized T-shirt')">
+        <img src="tshirt2.jpg" alt="T-shirt 2" onclick="showProductDetails('T-shirt 2', 'Price: $30', 'Comfortable and stylish T-shirt')">
+    </div>
+
+    <div id="shirt-list" class="product-list">
+        <h2>Shirts</h2>
+        <img src="shirt1.jpg" alt="Shirt 1" onclick="showProductDetails('Shirt 1', 'Price: $40', 'Premium quality shirt')">
+        <img src="shirt2.jpg" alt="Shirt 2" onclick="showProductDetails('Shirt 2', 'Price: $45', 'Elegant and formal shirt')">
+    </div>
+
+    <div id="jeans-list" class="product-list">
+        <h2>Jeans</h2>
+        <img src="jeans1.jpg" alt="Jeans 1" onclick="showProductDetails('Jeans 1', 'Price: $50', 'Slim fit jeans')">
+        <img src="jeans2.jpg" alt="Jeans 2" onclick="showProductDetails('Jeans 2', 'Price: $55', 'Comfortable and durable jeans')">
+    </div>
+
+    <div id="product-details" class="product-details">
+        <h2 id="product-name"></h2>
+        <p id="product-price"></p>
+        <p id="product-description"></p>
+        <button>Buy Now</button>
+        <button>Add to Cart</button>
+    </div>
+
+    <div class="threedot" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <div id="menu" class="menu">
+        <a href="#">Account</a>
+        <a href="#">Wishlist</a>
+        <a href="#">Orders</a>
+        <a href="#">Settings</a>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 NoWear Clothing | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">Shipping Info</a> | <a href="#">Returns & Exchanges</a></p>
+    </div>
+
+    <script>
+        function showProductList(category) {
+            document.getElementById('tshirt-list').style.display = 'none';
+            document.getElementById('shirt-list').style.display = 'none';
+            document.getElementById('jeans-list').style.display = 'none';
+            document.getElementById('product-details').style.display = 'none';
+            
+            document.getElementById(category + '-list').style.display = 'block';
+        }
+
+        function showProductDetails(name, price, description) {
+            document.getElementById('product-name').innerText = name;
+            document.getElementById('product-price').innerText = price;
+            document.getElementById('product-description').innerText = description;
+            document.getElementById('product-details').style.display = 'block';
+        }
+
+        function toggleMenu() {
+            var menu = document.getElementById('menu');
+            if (menu.style.display === 'block') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'block';
+            }
+        }
+    </script>
+
+</body>
+</html>
